@@ -25,12 +25,6 @@ export const updateSearchCount = async (searchTerm, movie) => {
         count: doc.count + 1,
       });
     } else {
-      console.log("Creating document with data:", {
-        searchTerm: searchTerm,
-        count: 1,
-        movie_id: movie.id,
-        poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-      });
       await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
         searchTerm: searchTerm,
         count: 1,
@@ -44,4 +38,17 @@ export const updateSearchCount = async (searchTerm, movie) => {
   // 3. If it doesn't, create a new entry with the search term and initial count of 1
 
   // 4. Use the Appwrite API to make these updates
+};
+
+export const getTrendingMovies = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(5),
+      Query.orderDesc("count"),
+    ]);
+
+    return result.documents;
+  } catch (error) {
+    console.error(error);
+  }
 };
