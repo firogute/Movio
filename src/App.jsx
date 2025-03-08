@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Search from "./components/Search";
+import Spinner from "./components/Spinner";
+import MovieCard from "./components/MovieCard";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -37,7 +39,6 @@ const App = () => {
         return;
       }
       setMovies(data.results || []);
-      console.log(movies);
     } catch (e) {
       console.error(e);
       setErrorMessage("Error Fetching Movies. Please try again later.");
@@ -49,6 +50,7 @@ const App = () => {
   useEffect(() => {
     fetchMovies();
   }, []);
+
   return (
     <main>
       <div className="pattern" />
@@ -62,15 +64,15 @@ const App = () => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
         <section className="all-movies">
-          <h2>All Movies</h2>
+          <h2 className="mt-[40px]">All Movies</h2>
           {loading ? (
-            <p className="text-white">Loading ....</p>
+            <Spinner />
           ) : errorMessage ? (
             <p className="text-red-500">{errorMessage}</p>
           ) : (
             <ul>
               {movies.map((movie) => (
-                <p className="text-white">{movie.title}</p>
+                <MovieCard movie={movie} key={movie.id} />
               ))}
             </ul>
           )}
