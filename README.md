@@ -27,7 +27,7 @@ Movio is a movie search platform that allows users to find movies based on their
 
 ## 📸 Screenshots
 
-(Insert Screenshots here)
+![Screenshot](./public/app.png)
 
 ## 🔧 Setup & Installation
 
