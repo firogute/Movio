@@ -74,7 +74,7 @@ const App = () => {
 
   useEffect(() => {
     loadTrendingMovies();
-    console.log(trendingMovies);
+    // console.log(trendingMovies);
   }, []);
 
   return (
